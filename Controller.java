@@ -2,26 +2,25 @@
 
 public class Controller {
   Timer timer = new Timer(); 
-  int noStudyCycle = 2; //no of focus + rest = 1 cycles 
+  int noStudyCycle = 2; //no of focus + rest = 1 cycles , later give user access to change it 
   int FocusPlayTime = 25;
   int BreakPlayTime = 25; //seconds the song plays
   int continuousWorkLimit = 120; //in minute, time for longBreakTime
   int TimeSpent = 0;
-  String filePath = "HeatWaves.mp3";
   String config_path = "./config.txt";
   ConfigParser parser = new ConfigParser(); // parses and give the config object
 
-  void start() { // requires all of timer info and total study/work time
+  void start() { 
     Config config = parser.getConfigValues(config_path);
     int cycle = 1;
     while (cycle <= noStudyCycle){
       TimeSpent += config.focusTime + config.breakTime; //  breakTime is added here to avoid short break befor long  and to avoid more focus mode
-      timer.setTimer(config.focusTime, FocusPlayTime, filePath, "Focus mode");  //foucs timer 
+      timer.setTimer(config.focusTime, FocusPlayTime, config.focusSong, "Focus mode");  //foucs timer 
       if (TimeSpent >= continuousWorkLimit ){
         TimeSpent = 0; //reset 
-        timer.setTimer(config.longBreakTime, BreakPlayTime, filePath, "Long Rest mode after every 2 hours of timer / study+rest"); //Long break time
+        timer.setTimer(config.longBreakTime, BreakPlayTime, config.restSong, "Long Rest mode after every 2 hours of timer / study+rest"); //Long break time
       }
-      else timer.setTimer(config.breakTime, BreakPlayTime, filePath, "Rest mode");  //rest timer
+      else timer.setTimer(config.breakTime, BreakPlayTime, config.restSong, "Rest mode");  //rest timer
       cycle++;
     }
   }

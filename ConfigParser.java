@@ -7,14 +7,19 @@ import java.io.IOException;
 public class ConfigParser{
   //defaults
   String timeUnit = "Minute";
-  int focusTime = 25;
-  int breakTime = 5;
-  int longBreakTime = 30;
   int defaultFocusTime = 25;
   int defaultBreakTime = 5;
   int defaultLongBreakTime = 30;
+  String defaultFoucsSong = "./HeatWaves.mp3";
+  String defaultRestSong = "./HeatWaves.mp3";
   
- 
+
+  int focusTime = defaultFocusTime;
+  int breakTime = defaultBreakTime;
+  int longBreakTime = defaultLongBreakTime;
+  String focusSong = defaultFoucsSong; 
+  String restSong = defaultRestSong; 
+     
 
   Config getConfigValues(String config_path){
     try {
@@ -22,11 +27,11 @@ public class ConfigParser{
     } catch (IOException e) {
           // defaults are applied 
           // If the file is missing or broken
-          // if the format is wrong like no two words or no int
+          // if the format is wrong like no two words or not int
           System.out.println("WARNING: Could not load config file ( " + e.getMessage() + " ). Going with defaults.");
-          return new Config(defaultFocusTime, defaultBreakTime, defaultLongBreakTime);
+          return new Config(defaultFocusTime, defaultBreakTime, defaultLongBreakTime, defaultFoucsSong, defaultRestSong);
     }
-    return new Config(focusTime, breakTime, longBreakTime);
+    return new Config(focusTime, breakTime, longBreakTime, focusSong, restSong);
   }
 
 
@@ -48,33 +53,48 @@ public class ConfigParser{
 
             String key = parts[0];
             String valueStr = parts[1];
-
-            try {
-                int value = Integer.parseInt(valueStr);
-                set_value(key, value);
-            //    System.out.println("Loaded Config -> " + key + ": " + value);
+            
+            if(key.equals("focus_song_path") || key.equals("rest_song_path")) 
+                    set_value(key,0, valueStr);
+            else { try{
+                        int value = Integer.parseInt(valueStr);
+                        set_value(key, value, "");
                 
-            } catch (NumberFormatException e) {
-                System.out.println("CRITICAL: Value for '" + key + "' is not a valid number!");
-                throw new IOException("Invalid numeric value in config: " + valueStr, e);
+                     } catch (NumberFormatException e) {
+                        System.out.println("CRITICAL: Value for '" + key + "' is not a valid number!");
+                        throw new IOException("Invalid numeric value in config: " + valueStr, e);
+                       } 
             }
         }
     }
   }
 
-  void set_value(String attribute, int value){
-        
+  void set_value(String attribute, int intValue, String strValue){
+    
+    if (intValue == 0) {
+        System.out.println("Loaded Config -> " + attribute + ": " + strValue); //use for debugging 
+    } 
+    else  System.out.println("Loaded Config -> " + attribute + ": " + intValue); //use for debugging 
+
     switch (attribute) {
        case "focusTime":
-          focusTime = value;
+          focusTime = intValue;
           break;
  
        case "breakTime":
-          breakTime = value;
+          breakTime = intValue;
           break;     
 
        case "longBreakTime":
-          longBreakTime = value;
+          longBreakTime = intValue;
+          break;
+
+       case "focus_song_path":
+          focusSong = strValue; 
+          break;
+
+       case "rest_song_path":
+          restSong = strValue;
           break;
 
        default:
@@ -84,3 +104,8 @@ public class ConfigParser{
   }
 
 }
+
+
+//better idea:(try if you want)
+//use method overloading for set_value for handling int and string 
+//the problem you no more enfore types like focusSong must be a string (if you are ok or have better idea go for it)
