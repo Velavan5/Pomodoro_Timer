@@ -1,0 +1,18 @@
+plans / improvements :-
+
+    * add notification (time for hyprland ) too
+    * user can add configs through commands
+    *  
+
+
+
+
+
+
+code design :- 
+  * Pomodoro is the entry point 
+  * config.txt has the duration , info
+  * Timer is the core class that has counting logic
+
+
+

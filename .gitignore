@@ -1,8 +1,2 @@
 # exclude mp3
 *.mp3
-
-#ignore plans stuff as it is reference stuff
-plan.txt
-
-#test run 
- 
