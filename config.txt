@@ -1,4 +1,4 @@
-focusTime 30 
+focusTime 25 
 breakTime  10 
 longBreakTime  30
 focus_end_song_path  ./HeatWaves.mp3

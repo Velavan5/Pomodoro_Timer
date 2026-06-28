@@ -9,13 +9,16 @@ public class Controller {
   int TimeSpent = 0;
   String config_path = "./config.txt";
   ConfigParser parser = new ConfigParser(); // parses and give the config object
-
+  Notification notify = new Notification();
+  
   void start() { 
     Config config = parser.getConfigValues(config_path);
     int cycle = 1;
     while (cycle <= noStudyCycle){
       TimeSpent += config.focusTime + config.breakTime; //  breakTime is added here to avoid short break befor long  and to avoid more focus mode
       timer.setTimer(config.focusTime, FocusPlayTime, config.focusEndSong, "Focus mode");  //foucs timer 
+      notify.displayMessage("from Laptop ", "put your System to SleeP and YOu tOO!!!!....");
+
       if (TimeSpent >= continuousWorkLimit ){
         TimeSpent = 0; //reset 
         timer.setTimer(config.longBreakTime, BreakPlayTime, config.restEndSong, "Long Rest mode after every 2 hours of timer / study+rest"); //Long break time
