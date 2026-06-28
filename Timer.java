@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 // Internally uses mpv command to play song
 public class Timer {
 
-  int volume = 70;
+  int volume = 85;
 
   void setTimer(int waitDuration, int playTime, String filePath ,String topic) { // arguments like song, volume , message : foucs or break
     //getting the time 

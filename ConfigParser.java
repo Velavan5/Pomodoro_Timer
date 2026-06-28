@@ -10,15 +10,15 @@ public class ConfigParser{
   int defaultFocusTime = 25;
   int defaultBreakTime = 5;
   int defaultLongBreakTime = 30;
-  String defaultFoucsSong = "./HeatWaves.mp3";
-  String defaultRestSong = "./HeatWaves.mp3";
+  String defaultFoucsEndSong = "./HeatWaves.mp3";
+  String defaultRestEndSong = "./HeatWaves.mp3";
   
 
   int focusTime = defaultFocusTime;
   int breakTime = defaultBreakTime;
   int longBreakTime = defaultLongBreakTime;
-  String focusSong = defaultFoucsSong; 
-  String restSong = defaultRestSong; 
+  String focusEndSong = defaultFoucsEndSong; 
+  String restEndSong = defaultRestEndSong; 
      
 
   Config getConfigValues(String config_path){
@@ -29,9 +29,9 @@ public class ConfigParser{
           // If the file is missing or broken
           // if the format is wrong like no two words or not int
           System.out.println("WARNING: Could not load config file ( " + e.getMessage() + " ). Going with defaults.");
-          return new Config(defaultFocusTime, defaultBreakTime, defaultLongBreakTime, defaultFoucsSong, defaultRestSong);
+          return new Config(defaultFocusTime, defaultBreakTime, defaultLongBreakTime, defaultFoucsEndSong, defaultRestEndSong);
     }
-    return new Config(focusTime, breakTime, longBreakTime, focusSong, restSong);
+    return new Config(focusTime, breakTime, longBreakTime, focusEndSong, restEndSong);
   }
 
 
@@ -54,7 +54,7 @@ public class ConfigParser{
             String key = parts[0];
             String valueStr = parts[1];
             
-            if(key.equals("focus_song_path") || key.equals("rest_song_path")) 
+            if(key.equals("focus_end_song_path") || key.equals("rest_end_song_path")) 
                     set_value(key,0, valueStr);
             else { try{
                         int value = Integer.parseInt(valueStr);
@@ -89,12 +89,12 @@ public class ConfigParser{
           longBreakTime = intValue;
           break;
 
-       case "focus_song_path":
-          focusSong = strValue; 
+       case "focus_end_song_path":
+          focusEndSong = strValue; 
           break;
 
-       case "rest_song_path":
-          restSong = strValue;
+       case "rest_end_song_path":
+          restEndSong = strValue;
           break;
 
        default:

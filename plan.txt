@@ -1,7 +1,7 @@
 plans / improvements :-
 
-    * add notification (time for hyprland ) too
-    * user can add configs through commands
+    * add notification (time to use for hyprland ) too [ medium - easy]
+    * user can add configs through commands  [Easy]
     *  
 
 

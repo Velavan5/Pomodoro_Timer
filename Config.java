@@ -5,15 +5,15 @@ public class Config {
   int focusTime ;
   int breakTime ;
   int longBreakTime ;
-  String focusSong;
-  String restSong;
+  String focusEndSong;
+  String restEndSong;
 
   Config(int _focusTime , int _breakTime, int _longBreakTime, String _focusSong, String _restSong){
     focusTime = _focusTime;
     breakTime = _breakTime;
     longBreakTime = _longBreakTime;
-    focusSong = _focusSong;
-    restSong = _restSong;
+    focusEndSong = _focusSong;
+    restEndSong = _restSong;
   }
 
 }
